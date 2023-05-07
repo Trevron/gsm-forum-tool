@@ -2,10 +2,10 @@ import axios from 'axios';
 import cheerio, { Cheerio } from 'cheerio';
 
 export async function fetchHTML(url: string): Promise<string | undefined> {
-  const proxyUrl = 'http://localhost:8080/';
+  // const proxyUrl = 'http://localhost:8080/';
 
   try {
-    const { data } = await axios.get(proxyUrl + url, {
+    const { data } = await axios.get(url, {
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       }
@@ -20,8 +20,6 @@ export async function fetchHTML(url: string): Promise<string | undefined> {
 
 export async function scrapeUsernames(id: string): Promise<string[]> {
   let usernames: string[] = [];
-  // https://gosupermodel.com/widgetcontent?widget=17&id=618256&offset=20&contentID=target&rnd=1683466236143
-  // https://gosupermodel.com/community/forum_thread.jsp?id=618256
   
   for (let page = 1; page <= 10; page++) {
     const offset = (page - 1) * 20;
@@ -53,10 +51,6 @@ export async function scrapeUsernames(id: string): Promise<string[]> {
 }
 
 export async function getPost(id: string): Promise<string> {
-  // https://gosupermodel.com/widgetcontent?widget=17&id=618256&offset=20&contentID=target&rnd=1683466236143
-  // https://gosupermodel.com/community/forum_thread.jsp?id=618256
-  
-
     const pageUrl = `https://gosupermodel.com/community/forum_thread.jsp?id=${id}`;
     const html = await fetchHTML(pageUrl);
     
