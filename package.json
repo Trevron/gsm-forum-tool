@@ -2,7 +2,7 @@
   "name": "gsm-forum-tools",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://trevron.github.io/night-crew",
+  "homepage": "https://trevron.github.io/gsm-forum-tool/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
