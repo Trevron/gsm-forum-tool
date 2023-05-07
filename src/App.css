@@ -1,34 +1,170 @@
-.App {
+/* Set the background color */
+body {
+  background-color: #FCF6B1;
+}
+
+/* Style the header */
+h1 {
+  font-size: 2.5em;
+  margin: 0;
+  padding: 20px;
   text-align: center;
+  color: #FFA9A3;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Style the paragraphs */
+p {
+  font-size: 1.2em;
+  line-height: 1.5;
+  margin: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Style the buttons */
+button {
+  background-color: #FFA9A3;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 1.2em;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+button:hover {
+  background-color: #F38C84;
+}
+
+/* Style the inputs */
+input[type="text"] {
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 1.2em;
+  margin-bottom: 20px;
+  width: 100%;
+  background-color: #FCE2DD;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+  background-color: #FFD7D0;
+}
+
+/* Style the submit button */
+input[type="submit"] {
+  background-color: #FFA9A3;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 1.2em;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  margin-top: 20px;
+}
+
+input[type="submit"]:hover {
+  background-color: #F38C84;
+}
+
+ul {
+  color: #5D5D5D;
+}
+
+/* Additional colors */
+.text-color {
+  color: #5D5D5D;
+}
+
+.accent-color-1 {
+  color: #4E4B5D;
+}
+
+.accent-color-2 {
+  color: #E7ECEF;
+}
+
+.background-color-2 {
+  background-color: #E7ECEF;
+}
+
+.background-color-3 {
+  background-color: #4E4B5D;
+}
+
+.background-color-4 {
+  background-color: #5D5D5D;
+}
+
+.border-color-1 {
+  border-color: #E7ECEF;
+}
+
+.border-color-2 {
+  border-color: #4E4B5D;
+}
+
+.main-interface {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-items: center;
+  align-items: center;
+
+  max-width: 400px;
 }
 
-.App-link {
-  color: #61dafb;
+textarea {
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 1.2em;
+  margin: 10px;
+  min-width: 300px;
+  height: 320px;
+  background-color: #FCE2DD;
+  resize: none;
 }
 
-@keyframes App-logo-spin {
+textarea:focus {
+  background-color: #FFD7D0;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #FCE2DD;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #FFA9A3;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #F38C84;
+}
+
+.loading {
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 169, 163, 0.2);
+  border-top: 3px solid #FCF6B1;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
   from {
     transform: rotate(0deg);
   }
