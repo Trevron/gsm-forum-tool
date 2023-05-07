@@ -2,10 +2,10 @@ import axios from 'axios';
 import cheerio, { Cheerio } from 'cheerio';
 
 export async function fetchHTML(url: string): Promise<string | undefined> {
-  // const proxyUrl = 'http://localhost:8080/';
+  const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
 
   try {
-    const { data } = await axios.get(url, {
+    const { data } = await axios.get(proxyUrl + url, {
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       }
