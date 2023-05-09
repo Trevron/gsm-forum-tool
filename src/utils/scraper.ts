@@ -2,7 +2,7 @@ import axios from 'axios';
 import cheerio, { Cheerio } from 'cheerio';
 
 export async function fetchHTML(url: string): Promise<string | undefined> {
-  const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+  const proxyUrl = 'https://hidden-falls-11976.herokuapp.com/';
 
   try {
     const { data } = await axios.get(proxyUrl + url, {
