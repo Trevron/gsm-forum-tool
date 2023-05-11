@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { getPost, scrapeUsernames } from "../utils/scraper";
 import { Button } from "./Button";
+import { replaceImageTags } from "../utils/emote";
+import ListItem from "./ListItem";
 
 
 export const MainPage = () => {
@@ -26,7 +28,8 @@ export const MainPage = () => {
         const scrapedPost = await getPost(id);
         const intro = scrapedPost.slice(0, scrapedPost.indexOf('-'));
         const list = scrapedPost.slice(scrapedPost.indexOf('-')).split('<br>').filter(line => !!line);
-        setPost(intro + list.map(line => '\n\n' + line).toString());
+        const formattedList = list.map(record => replaceImageTags(record));
+        setPost(intro + formattedList.map(line => '\n\n' + line).toString());
         setPending(false);
     }
 
@@ -89,7 +92,8 @@ export const MainPage = () => {
                     <div style={{textAlign: 'left', width: '100%'}}>
                         <ul>
                             {usernames.map((username, index) => (
-                                <li key={index}>{username}</li>
+                                // <li key={index}>{username}</li>
+                                <ListItem key={index} item={username} />
                             ))}
                         </ul>
                     </div>
