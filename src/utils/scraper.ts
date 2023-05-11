@@ -2,7 +2,7 @@ import axios from 'axios';
 import cheerio, { Cheerio } from 'cheerio';
 
 export async function fetchHTML(url: string): Promise<string | undefined> {
-  const proxyUrl = 'https://cors-anywhere-clone.herokuapp.com/';
+  const proxyUrl = process.env.NODE_ENV === 'production' ? 'https://cors-anywhere-clone.herokuapp.com/' : 'http://localhost:8080/';
 
   try {
     const { data } = await axios.get(proxyUrl + url, {
@@ -18,10 +18,19 @@ export async function fetchHTML(url: string): Promise<string | undefined> {
 }
 
 
-export async function scrapeUsernames(id: string): Promise<string[]> {
+export async function scrapeUsernames(id: string, pageCount: number): Promise<string[]> {
   let usernames: string[] = [];
+
+  // Get page count
+  // let pageCount = 0;
+  // const pageUrl = `https://gosupermodel.com/community/forum_thread.jsp?id=${id}`;
+  // const pageHtml = await fetchHTML(pageUrl);
+  // if (!pageHtml) return [];
+  // const _$ = cheerio.load(pageHtml);
+  // const pageNumber = _$('#pt_m1_0');
+  // console.log('page count: ', pageHtml);
   
-  for (let page = 1; page <= 10; page++) {
+  for (let page = 1; page <= pageCount; page++) {
     const offset = (page - 1) * 20;
     const ajaxUrl = `https://gosupermodel.com/widgetcontent?widget=17&id=${id}&offset=${offset}&contentID=target&rnd=${Date.now()}`;
     const html = await fetchHTML(ajaxUrl);
@@ -31,7 +40,6 @@ export async function scrapeUsernames(id: string): Promise<string[]> {
     }
 
     const $ = cheerio.load(html);
-  
     const usernameSelector = 'a[modelname]'; 
     
     $(usernameSelector).each((_index, element) => {

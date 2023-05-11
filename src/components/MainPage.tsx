@@ -6,6 +6,7 @@ import { Button } from "./Button";
 export const MainPage = () => {
     const [id, setId] = useState("");
     const [usernames, setUsernames] = useState<string[]>([]);
+    const [pageCount, setPageCount] = useState<number>(0);
     const [post, setPost] = useState('');
     const [pending, setPending] = useState(false);
 
@@ -15,7 +16,7 @@ export const MainPage = () => {
 
     const handleScrape = async () => {
         setPending(true);
-        const scrapedUsernames = await scrapeUsernames(id);
+        const scrapedUsernames = await scrapeUsernames(id, pageCount || 0);
         setUsernames(scrapedUsernames);
         setPending(false);
     };
@@ -41,6 +42,32 @@ export const MainPage = () => {
                         value={id}
                         onChange={handleUrlChange}
                         placeholder="Enter the forum post ID"
+                        onKeyDown={(e) => {
+                            if (e.code === 'Enter' || e.code === 'NumpadEnter') {
+                                e.preventDefault();
+                            }
+                        }}
+                    />
+                    <input
+                        type="number"
+                        min={0}
+                        max={50}
+                        value={pageCount}
+                        onChange={(e) => {
+                            let value = +e.target.value;
+                            if (value > 50) {
+                                value = 50;
+                            } else if (value < 0) {
+                                value = 0;
+                            }
+                            setPageCount(value);
+                        }}
+                        placeholder="Enter page count"
+                        onKeyDown={(e) => {
+                            if (e.code === 'Enter' || e.code === 'NumpadEnter') {
+                                e.preventDefault();
+                            }
+                        }}
                     />
                     <Button 
                         onClick={handleScrape}
