@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { getPost, scrapeUsernames } from "../utils/scraper";
 import { Button } from "./Button";
-import { replaceImageTags } from "../utils/emote";
+import { countDays, formatUserDaysList, organizeUserDaysList, replaceImageTags, updateDaysByUsername } from "../utils/emote";
 import ListItem from "./ListItem";
 
 
@@ -28,8 +28,12 @@ export const MainPage = () => {
         const scrapedPost = await getPost(id);
         const intro = scrapedPost.slice(0, scrapedPost.indexOf('-'));
         const list = scrapedPost.slice(scrapedPost.indexOf('-')).split('<br>').filter(line => !!line);
-        const formattedList = list.map(record => replaceImageTags(record));
-        setPost(intro + formattedList.map(line => '\n\n' + line).toString());
+        // const formattedList = list.map(record => replaceImageTags(record));
+        const userDays = list.map(data =>  countDays(data));
+        const updatedUserDays = updateDaysByUsername(usernames, userDays);
+        const organized = organizeUserDaysList(updatedUserDays);
+        // setPost(intro + (organized).map(line => '\n\n' + `${line.user} - ${line.days}`).toString());
+        setPost(formatUserDaysList(organized));
         setPending(false);
     }
 
