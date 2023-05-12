@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/gsm-forum-tool/static/css/main.b82cfb15.css",
-    "main.js": "/gsm-forum-tool/static/js/main.fd8ff3ed.js",
+    "main.js": "/gsm-forum-tool/static/js/main.3c303b28.js",
     "static/js/787.99d1870a.chunk.js": "/gsm-forum-tool/static/js/787.99d1870a.chunk.js",
     "index.html": "/gsm-forum-tool/index.html",
     "main.b82cfb15.css.map": "/gsm-forum-tool/static/css/main.b82cfb15.css.map",
-    "main.fd8ff3ed.js.map": "/gsm-forum-tool/static/js/main.fd8ff3ed.js.map",
+    "main.3c303b28.js.map": "/gsm-forum-tool/static/js/main.3c303b28.js.map",
     "787.99d1870a.chunk.js.map": "/gsm-forum-tool/static/js/787.99d1870a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b82cfb15.css",
-    "static/js/main.fd8ff3ed.js"
+    "static/js/main.3c303b28.js"
   ]
 }
