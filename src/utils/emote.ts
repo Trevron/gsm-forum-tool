@@ -145,7 +145,7 @@ export const organizeUserDaysList = (userDaysList: UserDays[]): UserDays[] => {
   
     for (let i = 0; i < userDaysList.length; i++) {
       const { user, days } = userDaysList[i];
-      formattedString += `-${user}: ${daysToEmotes(days)}`;
+      formattedString += `-${user} ${daysToEmotes(days).join('')}`;
   
       if (i < userDaysList.length - 1) {
         const nextUserDays = userDaysList[i + 1];

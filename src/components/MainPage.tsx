@@ -8,7 +8,7 @@ import ListItem from "./ListItem";
 export const MainPage = () => {
     const [id, setId] = useState("");
     const [usernames, setUsernames] = useState<string[]>([]);
-    const [pageCount, setPageCount] = useState<number>(0);
+    const [pageCount, setPageCount] = useState('');
     const [post, setPost] = useState('');
     const [pending, setPending] = useState(false);
 
@@ -16,14 +16,14 @@ export const MainPage = () => {
         setId(event.target.value);
     };
 
-    const handleScrape = async () => {
+    const scrapeNames = async () => {
         setPending(true);
-        const scrapedUsernames = await scrapeUsernames(id, pageCount || 0);
+        const scrapedUsernames = await scrapeUsernames(id, pageCount ? +pageCount : 0);
         setUsernames(scrapedUsernames);
         setPending(false);
     };
 
-    const handlePost = async () => {
+    const scrapePost = async () => {
         setPending(true);
         const scrapedPost = await getPost(id);
         const intro = scrapedPost.slice(0, scrapedPost.indexOf('-'));
@@ -36,6 +36,36 @@ export const MainPage = () => {
         setPost(formatUserDaysList(organized));
         setPending(false);
     }
+
+    // Copy Button
+    const [copyText, setCopyText] = useState('Copy to clipboard');
+    const copyToClipboard = () => {
+        setCopyText('Copied');
+
+        navigator.clipboard.writeText(post)
+
+        setTimeout(() => {
+            setCopyText('Copy to Clipboard');
+        }, 1000);
+    }
+
+    const handlePageCountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        const numericValue = value.replace(/\D/g, ''); // Remove non-numeric characters
+    
+        // Validate the input against the desired range
+        let validatedValue = numericValue;
+        if (numericValue !== '') {
+          const numeric = parseInt(numericValue, 10);
+          if (numeric > 50) {
+            validatedValue = '50';
+          } else if (numeric < 0) {
+            validatedValue = '0';
+          }
+        }
+    
+        setPageCount(validatedValue);
+      };
 
     return (
         <div>
@@ -56,19 +86,9 @@ export const MainPage = () => {
                         }}
                     />
                     <input
-                        type="number"
-                        min={0}
-                        max={50}
+                        type="text"
                         value={pageCount}
-                        onChange={(e) => {
-                            let value = +e.target.value;
-                            if (value > 50) {
-                                value = 50;
-                            } else if (value < 0) {
-                                value = 0;
-                            }
-                            setPageCount(value);
-                        }}
+                        onChange={handlePageCountChange}
                         placeholder="Enter page count"
                         onKeyDown={(e) => {
                             if (e.code === 'Enter' || e.code === 'NumpadEnter') {
@@ -77,14 +97,14 @@ export const MainPage = () => {
                         }}
                     />
                     <Button 
-                        onClick={handleScrape}
+                        onClick={scrapeNames}
                         loading={pending}
                     >
                         Get Models
                     </Button>
                     
                     <Button 
-                        onClick={handlePost} 
+                        onClick={scrapePost} 
                         loading={pending}
                     >
                             Make Post
@@ -93,6 +113,7 @@ export const MainPage = () => {
                         value={post}
                         readOnly     
                     />
+                    {post.length > 0 && <Button onClick={copyToClipboard}>{copyText}</Button>}
                     <div style={{textAlign: 'left', width: '100%'}}>
                         <ul>
                             {usernames.map((username, index) => (
