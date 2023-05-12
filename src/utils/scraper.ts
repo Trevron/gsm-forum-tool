@@ -1,5 +1,6 @@
 import axios from 'axios';
 import cheerio, { Cheerio } from 'cheerio';
+import { isValidDate } from './date';
 
 export async function fetchHTML(url: string): Promise<string | undefined> {
   const proxyUrl = process.env.NODE_ENV === 'production' ? 'https://cors-anywhere-clone.herokuapp.com/' : 'http://localhost:8080/';
@@ -20,15 +21,7 @@ export async function fetchHTML(url: string): Promise<string | undefined> {
 
 export async function scrapeUsernames(id: string, pageCount: number): Promise<string[]> {
   let usernames: string[] = [];
-
-  // Get page count
-  // let pageCount = 0;
-  // const pageUrl = `https://gosupermodel.com/community/forum_thread.jsp?id=${id}`;
-  // const pageHtml = await fetchHTML(pageUrl);
-  // if (!pageHtml) return [];
-  // const _$ = cheerio.load(pageHtml);
-  // const pageNumber = _$('#pt_m1_0');
-  // console.log('page count: ', pageHtml);
+  let postDate: Date | null = null;
   
   for (let page = 1; page <= pageCount; page++) {
     const offset = (page - 1) * 20;
@@ -45,7 +38,16 @@ export async function scrapeUsernames(id: string, pageCount: number): Promise<st
     $(usernameSelector).each((_index, element) => {
       const username = $(element).attr('modelname'); 
       if (username) {
-        usernames.push(username.trim());
+        // Get post dates and only accept usernames up until 5am
+        const previousTR = $(element).closest('tr').prevAll('tr').first();
+        const date =  previousTR.find('.post_date');
+        const parsedDate = new Date(date.text());
+        if (!postDate) {
+          postDate = parsedDate;
+        }
+        if (postDate && isValidDate({parsedDate, postDate})) {
+          usernames.push(username.trim());
+        }
       }
     });
 

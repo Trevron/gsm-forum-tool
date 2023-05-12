@@ -5,15 +5,17 @@ export interface UserDays {
 
 export const getEmote = (img: string): string => {
     switch (img) {
-        case "smiley2.gif": //:-)
+        case "smiley2.gif": 
             return ":-)";
-        case "smiley10.gif": // :-(
+        case "smiley9.gif": 
+            return ":-I";
+        case "smiley10.gif": 
             return ":-(";
-        case "smiley12.gif": // *cloud*
+        case "smiley12.gif": 
             return "*cloud*";
-        case "smiley13.gif": // *star*
+        case "smiley13.gif": 
             return "*star*";
-        case "smiley14.gif": // *I*
+        case "smiley14.gif": 
             return "*I*";
         default:
             return img;
@@ -32,6 +34,8 @@ const emoteToDays = (emote: string): number => {
             return 15;
         case "*I*":
             return 20;
+        case ":-I":
+            return 25;
         default:
             return 0;
     }
@@ -40,6 +44,10 @@ const emoteToDays = (emote: string): number => {
 export const daysToEmotes = (days: number): string[] => {
     const emotes: string[] = [];
 
+    while (days >= 25) {
+        emotes.push(":-I");
+        days -= 25;
+    }
     while (days >= 20) {
         emotes.push("*I*");
         days -= 20;

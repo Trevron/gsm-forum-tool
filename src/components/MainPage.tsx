@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { getPost, scrapeUsernames } from "../utils/scraper";
 import { Button } from "./Button";
-import { countDays, formatUserDaysList, organizeUserDaysList, replaceImageTags, updateDaysByUsername } from "../utils/emote";
+import { countDays, formatUserDaysList, organizeUserDaysList, replaceImageTags, updateDaysByUsername } from "../utils/userDays";
 import ListItem from "./ListItem";
 
 
