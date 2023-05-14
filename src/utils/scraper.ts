@@ -1,6 +1,6 @@
 import axios from 'axios';
 import cheerio, { Cheerio } from 'cheerio';
-import { isValidDate } from './date';
+import { isValidDate, parseDate } from './date';
 
 export async function fetchHTML(url: string): Promise<string | undefined> {
   const proxyUrl = process.env.NODE_ENV === 'production' ? 'https://cors-anywhere-clone.herokuapp.com/' : 'http://localhost:8080/';
@@ -41,7 +41,7 @@ export async function scrapeUsernames(id: string, pageCount: number): Promise<st
         // Get post dates and only accept usernames up until 5am
         const previousTR = $(element).closest('tr').prevAll('tr').first();
         const date =  previousTR.find('.post_date');
-        const parsedDate = new Date(date.text());
+        const parsedDate = parseDate(date.text());
         if (!postDate) {
           postDate = parsedDate;
         }
