@@ -9,6 +9,8 @@ export const getEmote = (img: string): string => {
             return ":-)";
         case "smiley6.gif":
             return ">:-(";
+        case "smiley7.gif":
+            return ">:-D";
         case "smiley9.gif": 
             return ":-I";
         case "smiley10.gif": 
@@ -40,6 +42,8 @@ const emoteToDays = (emote: string): number => {
             return 25;
         case ">:-(":
             return 30;
+        case ">:-D":
+            return 35;
         default:
             return 0;
     }
@@ -48,6 +52,10 @@ const emoteToDays = (emote: string): number => {
 export const daysToEmotes = (days: number): string[] => {
     const emotes: string[] = [];
 
+    while (days >= 35) {
+        emotes.push(">:-D");
+        days -= 35;
+    }
     while (days >= 30) {
         emotes.push(">:-(");
         days -= 30;

@@ -23,17 +23,29 @@ export const MainPage = () => {
         setPending(false);
     };
 
+    // const scrapeNamesTemp = async () => {
+    //     setPending(true);
+    //     const scrapedUsernames = await scrapeUsernames('662299', 4);
+    //     console.log('temp', scrapedUsernames)
+    //     const combined = [...usernames, ...scrapedUsernames];
+    //     console.log('combined', combined, 'length:', combined.length)
+    //     const onlyUnique = (value: string, index: number, array: string[]) => {
+    //         return array.indexOf(value) === index;
+    //       }
+    //     console.log('filtered', combined.filter(onlyUnique), 'length:', combined.filter(onlyUnique).length)
+    //     setUsernames(combined.filter(onlyUnique))
+    //     setPending(false);
+    // };
+
     const scrapePost = async () => {
         setPending(true);
         const scrapedPost = await getPost(id);
-        const intro = scrapedPost.slice(0, scrapedPost.indexOf('-'));
+        const intro = "1 day: *star*\n5 days: :-)\n10 days: :-(\n15 days: *cloud*\n20 days: *I*\n25 days: :-I\n30 days: >:-(\n35 days: >:-D\n\n";
         const list = scrapedPost.slice(scrapedPost.indexOf('-')).split('<br>').filter(line => !!line);
-        // const formattedList = list.map(record => replaceImageTags(record));
         const userDays = list.map(data =>  countDays(data));
         const updatedUserDays = updateDaysByUsername(usernames, userDays);
         const organized = organizeUserDaysList(updatedUserDays);
-        // setPost(intro + (organized).map(line => '\n\n' + `${line.user} - ${line.days}`).toString());
-        setPost(formatUserDaysList(organized));
+        setPost(intro + formatUserDaysList(organized));
         setPending(false);
     }
 
@@ -109,6 +121,13 @@ export const MainPage = () => {
                     >
                             Make Post
                     </Button>
+
+                    {/* <Button 
+                        onClick={scrapeNamesTemp} 
+                        loading={pending}
+                    >
+                            Temp Models
+                    </Button> */}
                     <textarea 
                         value={post}
                         readOnly     
