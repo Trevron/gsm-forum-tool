@@ -40,7 +40,7 @@ export const MainPage = () => {
     const scrapePost = async () => {
         setPending(true);
         const scrapedPost = await getPost(id);
-        const intro = "1 day: *star*\n5 days: :-)\n10 days: :-(\n15 days: *cloud*\n20 days: *I*\n25 days: :-I\n30 days: >:-(\n35 days: >:-D\n40 days: :-P\n\n";
+        const intro = "1 day: *star*\n5 days: :-)\n10 days: :-(\n15 days: *cloud*\n20 days: *I*\n25 days: :-I\n30 days: >:-(\n35 days: >:-D\n40 days: :-P\n45 days: :-D\n\n";
         const list = scrapedPost.slice(scrapedPost.indexOf('-')).split('<br>').filter(line => !!line);
         const userDays = list.map(data =>  countDays(data));
         const updatedUserDays = updateDaysByUsername(usernames, userDays);
